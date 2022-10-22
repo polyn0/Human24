@@ -2,5 +2,5 @@
 
 # 주제: 공공행정 문서 QA 서비스
 
-- [Retro Reader](https://github.com/cooelf/AwesomeMRC) 사용
-- 모델을 [koelectra](https://huggingface.co/monologg/koelectra-base-v3-discriminator)로 변경하여 사용
+- [Retro Reader](https://github.com/cooelf/AwesomeMRC)를 수정하여 사용
+- 한국어 모델인 [koelectra](https://huggingface.co/monologg/koelectra-base-v3-discriminator)로 변경
