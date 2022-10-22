@@ -4,3 +4,5 @@
 
 - [Retro Reader](https://github.com/cooelf/AwesomeMRC)를 수정하여 사용
 - 한국어 모델인 [koelectra](https://huggingface.co/monologg/koelectra-base-v3-discriminator)로 변경
+
+```pip install transformers==3.3.1```
