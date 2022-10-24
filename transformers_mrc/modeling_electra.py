@@ -94,6 +94,7 @@ class ElectraForQuestionAnsweringAVPool(ElectraPreTrainedModel):
             loss=total_loss,
             start_logits=start_logits,
             end_logits=end_logits,
+            has_log=has_log,
             hidden_states=discriminator_hidden_states.hidden_states,
             attentions=discriminator_hidden_states.attentions,
         )
