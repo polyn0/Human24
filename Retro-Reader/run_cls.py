@@ -37,8 +37,7 @@ except:
 
 from tqdm import tqdm, trange
 
-from transformers import WEIGHTS_NAME, ElectraForSequenceClassification
-from transformers_mrc import KoElectraConfig, KoElectraTokenizer
+from transformers import WEIGHTS_NAME, ElectraForSequenceClassification, ElectraConfig, ElectraTokenizer
 
 from transformers import AdamW, get_linear_schedule_with_warmup
 
@@ -52,10 +51,8 @@ import csv
 csv.field_size_limit(sys.maxsize)
 logger = logging.getLogger(__name__)
 
-ALL_MODELS = (tuple(KoElectraConfig.pretrained_config_archive_map.keys()))
-
 MODEL_CLASSES = {
-    'koelectra': (KoElectraConfig, ElectraForSequenceClassification, KoElectraTokenizer)
+    'koelectra': (ElectraConfig, ElectraForSequenceClassification, ElectraTokenizer)
 }
 
 
@@ -362,10 +359,9 @@ def main():
     parser.add_argument("--predict_file", default=None, type=str, required=False,
                         help="The input data dir. Should contain the .tsv files (or other data files) for the task.")
     parser.add_argument("--model_type", default=None, type=str, required=True,
-                        help="Model type selected in the list: " + ", ".join(MODEL_CLASSES.keys()))
+                        help="koelectra")
     parser.add_argument("--model_name_or_path", default=None, type=str, required=True,
-                        help="Path to pre-trained model or shortcut name selected in the list: " + ", ".join(
-                            ALL_MODELS))
+                        help="monologg/koelectra-base-v3-discriminator or monologg/koelectra-small-v3-discriminator.")
     parser.add_argument("--task_name", default=None, type=str, required=True,
                         help="The name of the task to train selected in the list: " + ", ".join(processors.keys()))
     parser.add_argument("--output_dir", default=None, type=str, required=True,
