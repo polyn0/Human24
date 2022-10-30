@@ -39,17 +39,15 @@ except:
 
 from tqdm import tqdm, trange
 
-from transformers_mrc import KoElectraConfig, KoElectraTokenizer, ElectraForQuestionAnsweringAVPool
-from transformers import WEIGHTS_NAME
+from transformers import WEIGHTS_NAME, ElectraConfig, ElectraTokenizer
+from transformers_mrc import ElectraForQuestionAnsweringAVPool
 
 from transformers import AdamW, get_linear_schedule_with_warmup
 
 logger = logging.getLogger(__name__)
 
-ALL_MODELS = (tuple(KoElectraConfig.pretrained_config_archive_map.keys()))
-
 MODEL_CLASSES = {
-    'koelectra': (KoElectraConfig, ElectraForQuestionAnsweringAVPool, KoElectraTokenizer)
+    'koelectra': (ElectraConfig, ElectraForQuestionAnsweringAVPool, ElectraTokenizer)
 }
 
 
@@ -387,10 +385,9 @@ def main():
 
     ## Required parameters
     parser.add_argument("--model_type", default=None, type=str, required=True,
-                        help="Model type selected in the list: " + ", ".join(MODEL_CLASSES.keys()))
+                        help="koelectra")
     parser.add_argument("--model_name_or_path", default=None, type=str, required=True,
-                        help="Path to pre-trained model or shortcut name selected in the list: " + ", ".join(
-                            ALL_MODELS))
+                        help="monologg/koelectra-base-v3-discriminator or monologg/koelectra-small-v3-discriminator.")
     parser.add_argument("--output_dir", default=None, type=str, required=True,
                         help="The output directory where the model checkpoints and predictions will be written.")
 
