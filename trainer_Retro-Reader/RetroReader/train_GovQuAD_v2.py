@@ -115,8 +115,8 @@ def load_and_convert(filepath):
 def main(args):
     # # ==== modified ====
     # # Load GovQuAD V2.0 dataset
-    file_train = 'train_10_prep2'
-    file_valid = 'dev_10_prep2'
+    file_train = 'f_training_4m'
+    file_valid = 'f_validation_4m'
 
     # train_df = load_and_convert('data/' + file_train + '.json')
     # valid_df = load_and_convert('data/' + file_valid + '.json')
@@ -124,8 +124,8 @@ def main(args):
     # train_df.to_csv('data/df_' + file_train + '.csv', mode='w')
     # valid_df.to_csv('data/df_' + file_valid + '.csv', mode='w')
 
-    train_df = pd.read_csv('data/df_' + file_train + '.csv')
-    valid_df = pd.read_csv('data/df_' + file_valid + '.csv')
+    train_df = pd.read_csv('data/' + file_train + '.csv')
+    valid_df = pd.read_csv('data/' + file_valid + '.csv')
 
     train_dataset = Dataset.from_dict(train_df)
     valid_dataset = Dataset.from_dict(valid_df)
