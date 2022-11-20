@@ -1,5 +1,6 @@
 import datasets
 from transformers.trainer_utils import EvalPrediction
+import json
 
 accuracy = datasets.load_metric("accuracy").compute
 precision = datasets.load_metric("precision").compute
@@ -42,4 +43,47 @@ def compute_squad_v2(p: EvalPrediction):
     """
     predictions = p.predictions
     references = p.label_ids
-    return squad_v2(predictions=predictions, references=references)
+
+    squad_v2_plus_am = squad_v2(predictions=predictions, references=references)
+
+    am = 0
+    for t in zip(predictions, references):
+        pred, gt, ids = t[0]['prediction_text'], t[1]['answers']['text'][0], t[0]['id']
+        am = am + compute_am_score(pred, gt, 0.5)
+    am_score = am / len(predictions) * 100
+
+    squad_v2_plus_am["am_score"] = am_score
+
+    return squad_v2_plus_am
+
+
+def compute_am_score(pred, gt, prob=0.5):
+    if gt == pred:  # 정답과 완전히 일치하는 경우 (EM=1)
+        return 1
+    elif (len(gt) == 0) or (len(pred) == 0):  # 하나는 null string인데 하나는 답이 있는 경우
+        return 0
+
+    s, l = pred, gt.strip()
+    if len(gt) < len(pred):
+        s, l = gt, pred
+
+    idx = l.find(s.split(" ")[0])
+
+    hit = 0
+    if idx != -1:
+        for s_ in s:  # 문자 단위로 비교
+            if l[idx] == s_:
+                hit += 1
+            else:
+                break
+
+            if idx < len(l) - 1:
+                idx += 1
+            else:
+                break
+
+    v = hit / len(l)
+    if v >= prob:
+        return 1
+    else:
+        return 0
