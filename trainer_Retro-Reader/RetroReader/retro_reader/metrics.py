@@ -46,12 +46,18 @@ def compute_squad_v2(p: EvalPrediction):
 
     squad_v2_plus_am = squad_v2(predictions=predictions, references=references)
 
-    am = 0
+    s = 0
+    gt_pred = dict()
     for t in zip(predictions, references):
-        pred, gt, ids = t[0]['prediction_text'], t[1]['answers']['text'][0], t[0]['id']
-        am = am + compute_am_score(pred, gt, 0.5)
-    am_score = am / len(predictions) * 100
-
+        pred, ids = t[0]['prediction_text'], t[0]['id']
+        if t[1]['answers']['text']:
+            gt = t[1]['answers']['text'][0]
+        else:
+            gt = ""
+        am = compute_am_score(pred, gt, 0.5)
+        gt_pred[ids] = {"score": [am, {"prediction": pred, "answer": gt}]}
+        s += am
+    am_score = s / len(predictions) * 100
     squad_v2_plus_am["am_score"] = am_score
 
     return squad_v2_plus_am
