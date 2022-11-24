@@ -593,7 +593,7 @@ class RetroReader:
             wandb_finish(self.intensive_reader)
 
       
-    # mode : app(1 문장), test(이미 값 다 있는 경우)
+    # mode : app(1 문장), test(test dataset), check(이미 score 나온 data)
     def inference(self, test_dataset: datasets.Dataset, mode='test') -> Tuple[Any]: # 예측할 example들 들어옴.
 
         # mode == 'app' : context와 question 1개씩 inference
