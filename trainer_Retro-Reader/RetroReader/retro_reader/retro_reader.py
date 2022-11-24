@@ -34,6 +34,7 @@ from .metrics import (
 
 DataClassType = NewType("DataClassType", Any)
 logger = logging.get_logger(__name__)
+logger.setLevel(logging.INFO)
 
 
 class SketchReader(BaseReader):
@@ -349,10 +350,13 @@ class RearVerifier:
         for key in score_ext.keys():
             if key not in all_scores:
                 all_scores[key] = []
+
+            # calculate scores
             all_scores[key].extend(
                 [self.beta1 * score_ext[key],
                  self.beta2 * score_diff[key]]
             )
+        # mean(score_ext, score_diff)
         output_scores = {}
         for key, scores in all_scores.items():
             mean_score = sum(scores) / float(len(scores))
@@ -453,7 +457,8 @@ class RetroReader:
             )
         # Get preprocessing function for inference
         sketch_prep_fn, _ = get_sketch_features(sketch_tokenizer, "test", retro_args)
-        
+
+        logger.info(f"using {retro_args.sketch_model_name} for sketch reader")
         # Get model for sketch reader
         sketch_model_cls = retro_args.sketch_model_cls
         sketch_model = sketch_model_cls.from_pretrained(
@@ -505,7 +510,8 @@ class RetroReader:
             )
         # Get preprocessing function for inference
         intensive_prep_fn, _ = get_intensive_features(intensive_tokenizer, "test", retro_args)
-        
+
+        logger.info(f"using {retro_args.intensive_model_name} for intensive reader")
         # Get model for intensive reader
         intensive_model_cls = retro_args.intensive_model_cls
         intensive_model = intensive_model_cls.from_pretrained(
@@ -559,7 +565,7 @@ class RetroReader:
             C.QUESTION_COLUMN_NAME: [query], 
             C.CONTEXT_COLUMN_NAME: [context]
         })
-        return self.inference(predict_examples)
+        return self.inference(predict_examples, mode='app')
     
     def train(self, module: str = "all"):
         
@@ -587,34 +593,54 @@ class RetroReader:
             wandb_finish(self.intensive_reader)
 
       
-            
-    def inference(self, test_dataset: datasets.Dataset) -> Tuple[Any]:
-        if "example_id" not in test_dataset.column_names:
-            test_dataset = test_dataset.map(
-                lambda _, i: {"example_id": str(i)},
-                with_indices=True,
-            )
-        sketch_features = predict_examples.map(
+    # mode : app(1 문장), test(test dataset), check(이미 score 나온 data)
+    def inference(self, test_dataset: datasets.Dataset, mode='test') -> Tuple[Any]: # 예측할 example들 들어옴.
+
+        # mode == 'app' : context와 question 1개씩 inference
+        if mode == 'app':
+            if "example_id" not in test_dataset.column_names:
+                test_dataset = test_dataset.map(
+                    lambda _, i: {"example_id": str(i)},
+                    with_indices=True,
+                )
+
+        sketch_features = test_dataset.map(
             self.sketch_prep_fn,
             batched=True,
-            remove_columns=predict_examples.column_names,
+            remove_columns=test_dataset.column_names,
         )
-        intensive_features = predict_examples.map(
+        intensive_features = test_dataset.map(
             self.intensive_prep_fn,
             batched=True,
-            remove_columns=predict_examples.column_names,
+            remove_columns=test_dataset.column_names,
         )
-        self.sketch_reader.to(self.sketch_reader.args.device)
-        score_ext = self.sketch_reader.predict(sketch_features, predict_examples)
-        self.sketch_reader.to("cpu")
-        self.intensive_reader.to(self.intensive_reader.args.device)
+        logger.info("sketch_reader predict")
+        # self.sketch_reader.to(self.sketch_reader.args.device)
+        score_ext = self.sketch_reader.predict(sketch_features, test_dataset)
+        # self.sketch_reader.to("cpu")
+
+        logger.info("intensive_reader predict")
+        # self.intensive_reader.to(self.intensive_reader.args.device)
         nbest_preds, score_diff = self.intensive_reader.predict(
-            intensive_features, predict_examples, mode="retro_inference")
-        self.intensive_reader.to("cpu")
+            intensive_features, test_dataset, mode="retro_inference")
+        # self.intensive_reader.to("cpu")
+
+        if mode == 'check':
+            with open('./outputs/sketch/cls_score.json', 'r') as f:
+                score_ext = json.load(f)
+            with open('./outputs/intensive/nbest_predictions.json', 'r') as f:
+                nbest_preds = json.load(f)
+            with open('./outputs/intensive/null_odds.json', 'r') as f:
+                score_diff = json.load(f)
+
+        # 'score_ext' from sketch_reader, 'score_diff, nbest_preds' from intensive_reader
         predictions, scores = self.rear_verifier(score_ext, score_diff, nbest_preds)
+        print(type(scores), len(scores), type(predictions), len(predictions))
+
+        # 최종 output
         outputs = (predictions, scores)
-        if return_submodule_outputs:
-            outputs += (score_ext, nbest_preds, score_diff)
+        # if return_submodule_outputs:
+        #     outputs += (score_ext, nbest_preds, score_diff)
         return outputs
             
     @property
