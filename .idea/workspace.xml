@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="361c2c4d-ad2d-44da-b282-116f67a72171" name="Changes" comment="" />
+    <list default="true" id="361c2c4d-ad2d-44da-b282-116f67a72171" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/configs/inference_ko_electra_small.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/configs/inference_ko_electra_small.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/retro_reader/retro_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/retro_reader/retro_reader.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +29,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/duckz/Downloads/human24_colab/inference_ko_electra_small.yaml",
+    "two.files.diff.last.used.file": "C:/Users/duckz/Desktop/human24/Human24/trainer_Retro-Reader/RetroReader/retro_reader/retro_reader.py"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

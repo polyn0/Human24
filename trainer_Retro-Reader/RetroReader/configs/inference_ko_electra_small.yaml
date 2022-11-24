@@ -23,19 +23,19 @@ RetroDataModelArguments:
     use_auth_token: False
     
     # SketchModelArguments
-    sketch_revision: ko-electra-small-sketch
-    sketch_model_name: jinmang2/retro-reader
+    # sketch_revision: checkpoint-22488
+    sketch_model_name: outputs/sketch/checkpoint-22488
     sketch_architectures: ElectraForSequenceClassification
     
     # IntensiveModelArguments
-    intensive_revision: ko-electra-small-intensive
-    intensive_model_name: jinmang2/retro-reader
+    # intensive_revision: checkpoint-26236
+    intensive_model_name: outputs/intensive/checkpoint-26236
     intensive_architectures: ElectraForQuestionAnsweringAVPool
     
 
 TrainingArguments:
-    output_dir: outputs
+    output_dir: outputs/rear_verification
     no_cuda: True # If you want to use cuda,
                   # change `no_cuda` to False and `fp16` to True
     per_device_train_batch_size: 1
-    per_device_eval_batch_size: 12
+    per_device_eval_batch_size: 128
