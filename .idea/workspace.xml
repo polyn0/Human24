@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="361c2c4d-ad2d-44da-b282-116f67a72171" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/retro_reader/retro_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/retro_reader/retro_reader.py" afterDir="false" />
+    <list default="true" id="361c2c4d-ad2d-44da-b282-116f67a72171" name="Changes" comment="import compute_squad_v2 추가">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/inference_GovQuAD_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/inference_GovQuAD_v2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/retro_reader/metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/retro_reader/metrics.py" afterDir="false" />
+    </list>
+    <list id="a7788b58-3d87-4649-ab6c-f3314a5af635" name=".idea" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Human24.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Human24.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,14 +30,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/duckz/Downloads/human24_colab/inference_ko_electra_small.yaml&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/duckz/Desktop/human24/Human24/trainer_Retro-Reader/RetroReader/retro_reader/retro_reader.py&quot;
-  }
-}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -41,6 +39,14 @@
       <option name="presentableId" value="Default" />
       <updated>1668694261409</updated>
     </task>
+    <task id="LOCAL-00001" summary="import compute_squad_v2 추가">
+      <created>1669452618232</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669452618232</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -53,5 +59,10 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="import compute_squad_v2 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="import compute_squad_v2 추가" />
   </component>
 </project>
