@@ -2,7 +2,7 @@ import csv
 import hanja
 
 concat_w = []
-with open('./data/concat_words.tsv', 'r', encoding='utf-8') as f:
+with open('./concat_words.tsv', 'r', encoding='utf-8') as f:
     tr = csv.reader(f, delimiter='\t')
     for _ in tr:
         concat_w.append(_)
