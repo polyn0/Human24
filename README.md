@@ -2,7 +2,5 @@
 
 # 주제: 공공행정 문서 QA 서비스
 
-- [Retro Reader](https://github.com/cooelf/AwesomeMRC)를 수정하여 사용
-- 한국어 모델인 [koelectra](https://huggingface.co/monologg/koelectra-base-v3-discriminator)로 변경
-
-```pip install transformers==3.3.1```
+- [Retre-Reader](https://github.com/jinmang2/RetroReader) 사용
+- dataset: [행정문서 기계독해 데이터셋](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=569)
