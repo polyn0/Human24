@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="361c2c4d-ad2d-44da-b282-116f67a72171" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/retro_reader/retro_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/retro_reader/retro_reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Human24.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
