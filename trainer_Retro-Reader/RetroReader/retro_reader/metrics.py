@@ -1,6 +1,6 @@
 import datasets
 from transformers.trainer_utils import EvalPrediction
-import json
+
 
 accuracy = datasets.load_metric("accuracy").compute
 precision = datasets.load_metric("precision").compute
@@ -47,7 +47,7 @@ def compute_squad_v2(p: EvalPrediction):
     squad_v2_plus_am = squad_v2(predictions=predictions, references=references)
 
     s = 0
-    gt_pred = dict()
+    # gt_pred = dict()
     for t in zip(predictions, references):
         pred, ids = t[0]['prediction_text'], t[0]['id']
         if t[1]['answers']['text']:
@@ -55,7 +55,7 @@ def compute_squad_v2(p: EvalPrediction):
         else:
             gt = ""
         am = compute_am_score(pred, gt, 0.5)
-        gt_pred[ids] = {"score": [am, {"prediction": pred, "answer": gt}]}
+        # gt_pred[ids] = {"score": [am, {"prediction": pred, "answer": gt}]}
         s += am
     am_score = s / len(predictions) * 100
     squad_v2_plus_am["am_score"] = am_score
