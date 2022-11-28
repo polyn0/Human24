@@ -1,18 +1,19 @@
 import pandas as pd
 import json
 from tqdm import tqdm
+import os
 
 from typing import Union, Any, Dict
 from datasets.arrow_dataset import Batch
 from datasets import Dataset
 
-import os
 import argparse
 import datasets
 from transformers.utils import logging, check_min_version
 from transformers.utils.versions import require_version
 
-from retro_reader import RetroReader
+from retro_reader import RetroReader, compute_squad_v2
+from transformers.trainer_utils import EvalPrediction
 from retro_reader.constants import EXAMPLE_FEATURES
 
 
@@ -23,6 +24,7 @@ require_version("datasets>=1.8.0")
 
 logger = logging.get_logger(__name__)
 logger.setLevel(logging.INFO)
+
 
 def schema_integrate(example: Batch) -> Union[Dict, Any]:
     title = example["title"]
@@ -64,8 +66,8 @@ def load_and_convert(filepath):
                 context = paragraph["context"].strip()
 
                 for qa in paragraph["qas"]: 
-                # ans_qa : {question, id, answers=[{text, answer_start}], is_impossible}
-                # unans_qa : {plausible_answer=[{text, answer_start}], question, id, answers=[], is_impossible}
+                    # ans_qa : {question, id, answers=[{text, answer_start}], is_impossible}
+                    # unans_qa : {plausible_answer=[{text, answer_start}], question, id, answers=[], is_impossible}
                     question = qa["question"].strip()
                     id_ = qa["id"]
                     if qa["answers"]:
@@ -90,7 +92,6 @@ def main(args):
     test_df = pd.read_csv('data/' + file_test + '.csv')
 
     test_dataset = Dataset.from_dict(test_df)
-
 
     korquad = datasets.DatasetDict({
         "validation": test_dataset  # num_rows: 5800 -> 6424   (2002)
@@ -119,10 +120,32 @@ def main(args):
 
     logger.info("Start inference")
     outputs = retro_reader.inference(korquad['validation'], mode='test')
-    
+
     logger.info("Saving final_results")
+    if not os.path.exists('outputs/rear_verification'):
+        os.makedirs('outputs/rear_verification')
     with open('outputs/rear_verification/final_result.json', "w") as writer:
         writer.write(json.dumps(outputs, indent=4, ensure_ascii=False) + "\n")
+
+    predictions = []
+    references = []
+    i = 0
+    for ids, text in outputs[0].items():
+        p_dict = {'id': ids, 'prediction_text': text, 'no_answer_probability': outputs[2][ids]}
+        predictions.append(p_dict)
+        ans = eval(test_df['answers'][i])
+        ref_dict = {'id': ids, 'answers': ans}
+        references.append(ref_dict)
+        i += 1
+
+    logger.info("Start evaluation")
+    res = compute_squad_v2(EvalPrediction(predictions=predictions, label_ids=references))
+
+    logger.info("Saving final_evaluation_results")
+    with open('outputs/rear_verification/final_results.txt', "w+") as writer:
+        writer.write("***** Final Eval results *****\n")
+        for key in sorted(res.keys()):
+            writer.write("%s = %s\n" % (key, str(res[key])))
 
     logger.warning("Inference retrospective reader Done.")
     
