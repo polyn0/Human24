@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="361c2c4d-ad2d-44da-b282-116f67a72171" name="Changes" comment="final evaluation result 추가">
+    <list default="true" id="361c2c4d-ad2d-44da-b282-116f67a72171" name="Changes" comment="파일명 수정">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/inference_GovQuAD_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer_Retro-Reader/RetroReader/inference_GovQuAD_v2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +76,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669631686905</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="파일명 수정">
+      <created>1669631944777</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1669631944777</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -98,6 +105,7 @@
     <MESSAGE value="mode=='check' 일 때 추가적으로 predict 하지 않도록 수정" />
     <MESSAGE value="outputs 수정" />
     <MESSAGE value="final evaluation result 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="final evaluation result 추가" />
+    <MESSAGE value="파일명 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="파일명 수정" />
   </component>
 </project>
