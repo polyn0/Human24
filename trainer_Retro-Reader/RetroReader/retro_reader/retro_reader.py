@@ -636,7 +636,7 @@ class RetroReader:
         print(type(scores), len(scores), type(predictions), len(predictions))
 
         # 최종 output
-        outputs = (predictions, scores)
+        outputs = (predictions, scores, score_diff)
         # if return_submodule_outputs:
         #     outputs += (score_ext, nbest_preds, score_diff)
         return outputs
