@@ -142,7 +142,7 @@ def main(args):
     res = compute_squad_v2(EvalPrediction(predictions=predictions, label_ids=references))
 
     logger.info("Saving final_evaluation_results")
-    with open('outputs/rear_verification/final_results.txt', "w+") as writer:
+    with open('outputs/rear_verification/final_eval_results.txt', "w+") as writer:
         writer.write("***** Final Eval results *****\n")
         for key in sorted(res.keys()):
             writer.write("%s = %s\n" % (key, str(res[key])))
